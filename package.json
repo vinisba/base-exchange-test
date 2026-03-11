@@ -10,7 +10,9 @@
     "format": "biome format --write"
   },
   "dependencies": {
+    "@elysiajs/eden": "^1.4.8",
     "@elysiajs/node": "^1.4.5",
+    "@elysiajs/openapi": "^1.4.14",
     "@prisma/adapter-pg": "7.4.2",
     "@prisma/client": "7.4.2",
     "better-auth": "^1.5.5",
