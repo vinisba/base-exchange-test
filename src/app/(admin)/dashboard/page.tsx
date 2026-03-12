@@ -6,5 +6,14 @@ export default async function DashboardPage() {
     headers: await headers(),
   });
 
-  return <pre>{JSON.stringify(session?.user, null, 2)}</pre>;
+  return (
+    <div className="flex flex-col gap-4">
+      <pre>{JSON.stringify(session?.user, null, 2)}</pre>
+      <pre>{JSON.stringify(session?.user, null, 2)}</pre>
+      <pre>{JSON.stringify(session?.user, null, 2)}</pre>
+      <pre>{JSON.stringify(session?.user, null, 2)}</pre>
+      <pre>{JSON.stringify(session?.user, null, 2)}</pre>
+      <pre>{JSON.stringify(session?.user, null, 2)}</pre>
+    </div>
+  );
 }
