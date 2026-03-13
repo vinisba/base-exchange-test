@@ -1,9 +1,8 @@
-import { BadgeDollarSign } from "lucide-react";
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { APP_NAME } from "@/utils/constans";
 import { headers } from "next/headers";
-import { Logo } from "@/components/layout/logo";
+import { Logo } from "@/components/ui/logo";
 
 interface AuthLayoutProps {
   children: React.ReactNode;

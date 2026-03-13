@@ -1,13 +1,25 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
-import { Header } from "@/components/layout/header";
+import { Navbar } from "./navbar";
+import { Logo } from "@/components/ui/logo";
+import { NavUser } from "@/components/user/nav-user";
+import { NavbarMenu } from "@/components/ui/navbar-menu";
+
+const menuItems = [
+  { label: "Dashboard", href: "/dashboard" },
+  { label: "Minhas ordens", href: "/orders" },
+];
 
 interface AdminLayoutProps {
   children: React.ReactNode;
+  modal: React.ReactNode;
 }
 
-export default async function AdminLayout({ children }: AdminLayoutProps) {
+export default async function AdminLayout({
+  children,
+  modal,
+}: AdminLayoutProps) {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -16,9 +28,14 @@ export default async function AdminLayout({ children }: AdminLayoutProps) {
 
   return (
     <div className="flex min-h-svh flex-col items-center bg-muted p-4 pt-24 md:p-6 md:pt-28">
-      <div className="flex flex-col w-full max-w-6xl gap-6">
-        <Header />
-        <main className="bg-white">{children}</main>
+      <div className="flex flex-col w-full max-w-7xl gap-6">
+        <Navbar>
+          <Logo />
+          <NavbarMenu items={menuItems} />
+          <NavUser user={session.user} />
+        </Navbar>
+        <main>{children}</main>
+        {modal}
       </div>
     </div>
   );

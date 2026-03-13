@@ -1,11 +1,13 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
-import { Logo } from "./logo";
-import { Menu } from "./menu";
-import { NavUser } from "../user/nav-user";
+import { MagicCard } from "@/components/ui/magic-card";
+import { useEffect, useState } from "react";
 
-export function Header() {
+interface NavbarProps {
+  children: React.ReactNode;
+}
+
+export function Navbar({ children }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -26,15 +28,20 @@ export function Header() {
       }`}
     >
       <div
-        className={`w-full max-w-6xl flex flex-row items-center h-16 gap-4 bg-white border transition-all duration-300 px-4 ${
+        className={`w-full max-w-7xl transition-all duration-300 ${
           scrolled ? "rounded-b-xl" : "rounded-xl"
         }`}
       >
-        <Logo />
-        <div className="flex-1">
-          <Menu />
-        </div>
-        <NavUser />
+        <MagicCard
+          mode="orb"
+          glowFrom={"#E9D5FF"}
+          glowTo={"#FBCFE8"}
+          className="p-0"
+        >
+          <div className="flex flex-row items-center h-16 gap-4 border px-4">
+            {children}
+          </div>
+        </MagicCard>
       </div>
     </header>
   );
