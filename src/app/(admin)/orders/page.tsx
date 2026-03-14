@@ -1,9 +1,9 @@
+import { FileUser, Plus } from "lucide-react";
+import Link from "next/link";
 import { OrderTable } from "@/components/orders/table";
 import { TableFilters } from "@/components/orders/table-filters";
 import { Button } from "@/components/ui/button";
 import { Page, PageContent, PageTitle } from "@/components/ui/page";
-import { FileUser, Plus } from "lucide-react";
-import Link from "next/link";
 
 export default function OrdersPage() {
   return (

@@ -1,37 +1,30 @@
-import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Controller, useForm } from "react-hook-form";
+import { useOrders } from "@/hooks/use-orders";
+import { type OrderData, orderSchema } from "@/schemas/order";
 import { Button } from "../ui/button";
 import { DialogClose, DialogFooter } from "../ui/dialog";
 import { Field, FieldError, FieldGroup, FieldLabel } from "../ui/field";
-import { Controller, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "../ui/input";
 import { ToggleGroup, ToggleGroupItem } from "../ui/toggle-group";
 
 enum Sides {
-  Compra = "buy",
-  Venda = "sell",
+  Compra = "BUY",
+  Venda = "SELL",
 }
-
-const orderSchema = z.object({
-  instrument: z.string().min(1, "Instrumento é obrigatório"),
-  price: z.coerce
-    .number<number>({ error: "Preço é obrigatório" })
-    .min(1, "Preço é obrigatório"),
-  quantity: z.coerce
-    .number<number>()
-    .int("Número inteiro obrigatório")
-    .positive("Quantidade maior que zero"),
-  side: z.enum(["buy", "sell"], "Selecione um lado"),
-});
-
-type OrderData = z.infer<typeof orderSchema>;
 
 interface OrderFormProps {
   onFormClose?: () => void;
 }
 
 export function OrderForm({ onFormClose }: OrderFormProps) {
-  const { control, handleSubmit } = useForm<OrderData>({
+  const { createOrder } = useOrders();
+
+  const {
+    control,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<OrderData>({
     resolver: zodResolver(orderSchema),
     defaultValues: {
       instrument: "",
@@ -42,7 +35,7 @@ export function OrderForm({ onFormClose }: OrderFormProps) {
   });
 
   function onSubmit(data: OrderData) {
-    console.log(data);
+    createOrder(data);
   }
 
   return (
@@ -76,7 +69,7 @@ export function OrderForm({ onFormClose }: OrderFormProps) {
                 <ToggleGroup
                   variant="outline"
                   type="single"
-                  value={field.value}
+                  value={field.value || ""}
                   onValueChange={field.onChange}
                 >
                   {Object.entries(Sides).map(([label, value]) => (
@@ -141,7 +134,9 @@ export function OrderForm({ onFormClose }: OrderFormProps) {
         <DialogClose asChild>
           <Button variant="outline">Fechar</Button>
         </DialogClose>
-        <Button type="submit">Criar</Button>
+        <Button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Criando..." : "Criar"}
+        </Button>
       </DialogFooter>
     </form>
   );

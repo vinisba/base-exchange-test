@@ -1,7 +1,7 @@
 import Elysia from "elysia";
+import { orders } from "./orders";
 import { auth } from "./utils/auth";
 import { docs } from "./utils/openapi";
-import { orders } from "./orders";
 
 export const app = new Elysia({ prefix: "/api" })
   .use(docs)

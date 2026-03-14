@@ -1,7 +1,8 @@
-import { ColumnDef } from "@tanstack/react-table";
+import type { ColumnDef } from "@tanstack/react-table";
+import type { OrderModel } from "@/server/orders/model";
 import { DataTableColumnHeader } from "../ui/data-table-column-header";
 
-export const columns: ColumnDef<Order>[] = [
+export const columns: ColumnDef<OrderModel["order"]>[] = [
   {
     accessorKey: "id",
     enableSorting: true,

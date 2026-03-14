@@ -1,7 +1,7 @@
 "use client";
 
-import { MagicCard } from "@/components/ui/magic-card";
 import { useEffect, useState } from "react";
+import { MagicCard } from "@/components/ui/magic-card";
 
 interface NavbarProps {
   children: React.ReactNode;

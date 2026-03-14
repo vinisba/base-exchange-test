@@ -1,5 +1,7 @@
 "use client";
 
+import { format } from "date-fns";
+import { CalendarIcon, FunnelX } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -7,8 +9,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { format } from "date-fns";
-import { CalendarIcon, FunnelX } from "lucide-react";
 import { Card, CardContent, CardFooter } from "../ui/card";
 
 interface DateFilterProps {

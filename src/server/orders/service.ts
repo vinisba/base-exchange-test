@@ -1,6 +1,6 @@
+import type { User } from "better-auth";
 import { prisma } from "@/lib/prisma";
 import type { OrderModel } from "./model";
-import { User } from "better-auth";
 
 export abstract class OrderService {
   static async getOrders(): Promise<OrderModel["order"][]> {
@@ -21,8 +21,6 @@ export abstract class OrderService {
         userId: user.id,
       },
     });
-
-    console.log(newOrder);
 
     return {
       ...newOrder,

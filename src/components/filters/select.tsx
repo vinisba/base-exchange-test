@@ -1,17 +1,15 @@
 "use client";
 
+import { X } from "lucide-react";
+import type { Select as SelectPrimitive } from "radix-ui";
 import {
   Select,
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
-  SelectSeparator,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { X } from "lucide-react";
-import { Select as SelectPrimitive } from "radix-ui";
 
 interface SelectFilterProps {
   options?: { label: string | React.ReactNode; value: string }[];

@@ -1,7 +1,7 @@
 import Elysia from "elysia";
 import { auth } from "../utils/auth";
-import { OrderService } from "./service";
 import { OrderModel } from "./model";
+import { OrderService } from "./service";
 
 export const orders = new Elysia({ prefix: "/orders" })
   .use(auth)
