@@ -1,6 +1,7 @@
 "use client";
 
 import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
 import { CalendarIcon, FunnelX } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -46,6 +47,7 @@ export function DateFilter({
               selected={date}
               onSelect={onSelectDate}
               defaultMonth={date}
+              locale={ptBR}
             />
           </CardContent>
           <CardFooter>

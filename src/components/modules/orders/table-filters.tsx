@@ -1,6 +1,6 @@
-import { DateFilter } from "../filters/date";
-import { SearchFilter } from "../filters/search";
-import { SelectFilter } from "../filters/select";
+import { DateFilter } from "@/components/filters/date";
+import { SearchFilter } from "@/components/filters/search";
+import { SelectFilter } from "@/components/filters/select";
 
 export function TableFilters() {
   return (

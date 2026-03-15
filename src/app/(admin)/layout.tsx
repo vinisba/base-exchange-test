@@ -1,9 +1,9 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { NavUser } from "@/components/modules/user/nav-user";
 import { Logo } from "@/components/ui/logo";
 import { NavbarMenu } from "@/components/ui/navbar-menu";
 import { Toaster } from "@/components/ui/sonner";
-import { NavUser } from "@/components/user/nav-user";
 import { auth } from "@/lib/auth";
 import { Providers } from "@/lib/providers";
 import { Navbar } from "./navbar";

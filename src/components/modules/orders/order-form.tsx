@@ -1,23 +1,25 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
+import { MoneyInput } from "@/components/inputs/money-input";
+import { StockInput } from "@/components/inputs/stock-input";
+import { Button } from "@/components/ui/button";
+import { DialogClose, DialogFooter } from "@/components/ui/dialog";
+import {
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { useOrders } from "@/hooks/use-orders";
 import { type OrderData, orderSchema } from "@/schemas/order";
-import { Button } from "../ui/button";
-import { DialogClose, DialogFooter } from "../ui/dialog";
-import { Field, FieldError, FieldGroup, FieldLabel } from "../ui/field";
-import { Input } from "../ui/input";
-import { ToggleGroup, ToggleGroupItem } from "../ui/toggle-group";
 
 enum Sides {
   Compra = "BUY",
   Venda = "SELL",
 }
-
-interface OrderFormProps {
-  onFormClose?: () => void;
-}
-
-export function OrderForm({ onFormClose }: OrderFormProps) {
+export function OrderForm() {
   const { createOrder } = useOrders();
 
   const {
@@ -28,7 +30,7 @@ export function OrderForm({ onFormClose }: OrderFormProps) {
     resolver: zodResolver(orderSchema),
     defaultValues: {
       instrument: "",
-      price: undefined,
+      price: 0,
       quantity: 0,
       side: undefined,
     },
@@ -39,20 +41,18 @@ export function OrderForm({ onFormClose }: OrderFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <FieldGroup className="px-4 mb-6">
+    <form id="order-form" onSubmit={handleSubmit(onSubmit)}>
+      <FieldGroup className="mb-6">
         <div className="grid grid-cols-2 gap-4">
           <Controller
             control={control}
             name="instrument"
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="instrument">Instrumento</FieldLabel>
-                <Input
-                  {...field}
+                <FieldLabel htmlFor="instrument">Ação</FieldLabel>
+                <StockInput
                   id="instrument"
-                  aria-invalid={fieldState.invalid}
-                  autoComplete="off"
+                  onChange={(item) => field.onChange(item)}
                 />
                 {fieldState.invalid && (
                   <FieldError errors={[fieldState.error]} />
@@ -94,13 +94,12 @@ export function OrderForm({ onFormClose }: OrderFormProps) {
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
                 <FieldLabel htmlFor="price">Preço</FieldLabel>
-                <Input
+                <MoneyInput
                   {...field}
                   id="price"
-                  type="number"
                   aria-invalid={fieldState.invalid}
                   autoComplete="off"
-                  value={field.value || ""}
+                  value={field.value}
                 />
                 {fieldState.invalid && (
                   <FieldError errors={[fieldState.error]} />
@@ -130,10 +129,8 @@ export function OrderForm({ onFormClose }: OrderFormProps) {
           />
         </div>
       </FieldGroup>
-      <DialogFooter className="border-t p-4 bg-muted rounded-b-xl">
-        <DialogClose asChild>
-          <Button variant="outline">Fechar</Button>
-        </DialogClose>
+      <DialogFooter>
+        <DialogClose render={<Button variant="outline">Cancel</Button>} />
         <Button type="submit" disabled={isSubmitting}>
           {isSubmitting ? "Criando..." : "Criar"}
         </Button>

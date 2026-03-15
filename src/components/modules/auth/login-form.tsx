@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
+import { AlertFeedback } from "@/components/ui/alert-feedback";
 import { Button } from "@/components/ui/button";
 import {
   Field,
@@ -15,7 +16,6 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/client";
-import { AlertFeedback } from "../ui/alert-feedback";
 
 const signInSchema = z.object({
   email: z.email("E-mail inválido"),

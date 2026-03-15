@@ -13,7 +13,6 @@ export function useOrders() {
   const { data, isLoading } = useQuery({
     queryKey: ["orders"],
     queryFn: () => api.orders.get(),
-    staleTime: Infinity,
   });
 
   const { mutate } = useMutation({

@@ -1,8 +1,8 @@
 "use client";
 
 import { useMemo } from "react";
+import { DataTable } from "@/components/ui/data-table";
 import { useOrders } from "@/hooks/use-orders";
-import { DataTable } from "../ui/data-table";
 import { columns } from "./columns";
 
 export function OrderTable() {

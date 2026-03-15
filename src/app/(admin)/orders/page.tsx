@@ -1,7 +1,8 @@
 import { FileUser, Plus } from "lucide-react";
 import Link from "next/link";
-import { OrderTable } from "@/components/orders/table";
-import { TableFilters } from "@/components/orders/table-filters";
+import { StockInput } from "@/components/inputs/stock-input";
+import { OrderTable } from "@/components/modules/orders/table";
+import { TableFilters } from "@/components/modules/orders/table-filters";
 import { Button } from "@/components/ui/button";
 import { Page, PageContent, PageTitle } from "@/components/ui/page";
 

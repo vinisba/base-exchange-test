@@ -1,7 +1,7 @@
 import { LayoutDashboard, Plus } from "lucide-react";
 import Link from "next/link";
-import { OrderTable } from "@/components/orders/table";
-import { TableFilters } from "@/components/orders/table-filters";
+import { OrderTable } from "@/components/modules/orders/table";
+import { TableFilters } from "@/components/modules/orders/table-filters";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { CardGrid, CardGridItem } from "@/components/ui/card-grid";

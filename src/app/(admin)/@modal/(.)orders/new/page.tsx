@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { OrderForm } from "@/components/orders/form";
+import { OrderForm } from "@/components/modules/orders/order-form";
 import {
   Dialog,
   DialogContent,
@@ -19,8 +19,8 @@ export default function NewOrderModal() {
 
   return (
     <Dialog open onOpenChange={(open) => !open && handleBack()}>
-      <DialogContent className="sm:max-w-lg p-0">
-        <DialogHeader className="p-6 border-b">
+      <DialogContent className="sm:max-w-lg">
+        <DialogHeader>
           <DialogTitle>Adicionar ordem</DialogTitle>
           <DialogDescription>
             Preencha os dados para criar uma nova ordem.
