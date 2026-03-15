@@ -13,6 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { authClient } from "@/lib/client";
+import { getInitials } from "@/utils/format";
 
 interface NavUserProps {
   user: {
@@ -24,10 +25,6 @@ interface NavUserProps {
 
 export function NavUser({ user }: NavUserProps) {
   const router = useRouter();
-
-  const initials: string =
-    user.name.charAt(0).toUpperCase() +
-    user.name.charAt(user.name.indexOf(" ") + 1).toUpperCase();
 
   function handleLogout() {
     authClient.signOut().then(() => router.push("/sign-in"));
@@ -53,7 +50,9 @@ export function NavUser({ user }: NavUserProps) {
                 src={user.image as string | undefined}
                 alt={user.name}
               />
-              <AvatarFallback className="rounded-lg">{initials}</AvatarFallback>
+              <AvatarFallback className="rounded-lg">
+                {getInitials(user.name)}
+              </AvatarFallback>
             </Avatar>
             <div className="grid flex-1 text-left text-sm leading-tight">
               <span className="truncate font-medium">{user.name}</span>

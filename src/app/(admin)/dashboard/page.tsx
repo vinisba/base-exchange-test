@@ -1,6 +1,7 @@
 import { LayoutDashboard, Plus } from "lucide-react";
 import Link from "next/link";
-import { OrderTable } from "@/components/modules/orders/table";
+import OrderCancel from "@/components/modules/orders/order-cancel";
+import { OrderTable } from "@/components/modules/orders/order-table";
 import { TableFilters } from "@/components/modules/orders/table-filters";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -55,6 +56,7 @@ export default async function DashboardPage() {
           <CardContent className="flex flex-col gap-3">
             <TableFilters />
             <OrderTable />
+            <OrderCancel />
           </CardContent>
         </Card>
       </PageContent>

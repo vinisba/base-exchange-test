@@ -1,12 +1,12 @@
-import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { Slot } from "radix-ui";
-
-import { cn } from "@/lib/utils";
+import type * as React from "react";
 import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
 
 function ItemGroup({ className, ...props }: React.ComponentProps<"div">) {
   return (
+    // biome-ignore lint/a11y/useSemanticElements: intentional
     <div
       role="list"
       data-slot="item-group"

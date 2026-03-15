@@ -20,12 +20,7 @@ export const brapi = new Elysia({
     async ({ query, status }) => {
       const { q } = query;
       const response = await fetch(
-        `${BRAPI_API_URL}?search=${q}&limit=5&type=stock`,
-        {
-          headers: {
-            Authorization: `Bearer ${process.env.ABRAPI_API_TOKEN}`,
-          },
-        },
+        `${BRAPI_API_URL}?search=${q}&limit=5&type=stock&token=${process.env.BRAPI_API_TOKEN}`,
       );
 
       const data = (await response.json()) as { stocks: Stock[] };

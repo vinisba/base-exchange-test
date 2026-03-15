@@ -1,3 +1,9 @@
+-- CreateEnum
+CREATE TYPE "Status" AS ENUM ('OPEN', 'CANCELED', 'PARTIAL', 'EXECUTED');
+
+-- CreateEnum
+CREATE TYPE "Side" AS ENUM ('BUY', 'SELL');
+
 -- CreateTable
 CREATE TABLE "user" (
     "id" TEXT NOT NULL,
@@ -56,6 +62,46 @@ CREATE TABLE "verification" (
     CONSTRAINT "verification_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "order" (
+    "id" TEXT NOT NULL,
+    "instrument" TEXT NOT NULL,
+    "side" "Side" NOT NULL,
+    "status" "Status" NOT NULL DEFAULT 'OPEN',
+    "quantity" INTEGER NOT NULL,
+    "remaining" INTEGER NOT NULL,
+    "price" BIGINT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "order_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "history" (
+    "id" SERIAL NOT NULL,
+    "orderId" TEXT NOT NULL,
+    "oldStatus" "Status" NOT NULL,
+    "newStatus" "Status" NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "history_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "execution" (
+    "id" SERIAL NOT NULL,
+    "orderId" TEXT NOT NULL,
+    "quantity" INTEGER NOT NULL,
+    "price" BIGINT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "execution_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "user_email_key" ON "user"("email");
 
@@ -71,8 +117,26 @@ CREATE INDEX "account_userId_idx" ON "account"("userId");
 -- CreateIndex
 CREATE INDEX "verification_identifier_idx" ON "verification"("identifier");
 
+-- CreateIndex
+CREATE INDEX "order_userId_idx" ON "order"("userId");
+
+-- CreateIndex
+CREATE INDEX "history_orderId_idx" ON "history"("orderId");
+
+-- CreateIndex
+CREATE INDEX "execution_orderId_idx" ON "execution"("orderId");
+
 -- AddForeignKey
 ALTER TABLE "session" ADD CONSTRAINT "session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "account" ADD CONSTRAINT "account_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "order" ADD CONSTRAINT "order_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "history" ADD CONSTRAINT "history_orderId_fkey" FOREIGN KEY ("orderId") REFERENCES "order"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "execution" ADD CONSTRAINT "execution_orderId_fkey" FOREIGN KEY ("orderId") REFERENCES "order"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

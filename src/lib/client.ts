@@ -4,6 +4,9 @@ import type { App } from "@/server";
 
 export const api = treaty<App>(
   process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000",
+  {
+    throwHttpError: true,
+  },
 ).api;
 
 export const authClient = createAuthClient({
