@@ -85,9 +85,10 @@ bun run test:e2e --project=chromium
 ```
 
 ## Melhorias
-
+- Estado de loading para a tabela de ordens
 - Fila e backgrounds jobs para processar a execução da ordens de forma assíncrona
 - Testes unitários para API
+- Websocket para mostrar ordens executadas em tempo real (?)
 
 ## Contribuição
 
