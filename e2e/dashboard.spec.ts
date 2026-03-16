@@ -16,10 +16,10 @@ test.describe("Dashboard", () => {
     ).toBeVisible();
 
     // Verify KPI cards are visible
-    await expect(page.getByText("Monthly revenue")).toBeVisible();
-    await expect(page.getByText("Orders fulfilled")).toBeVisible();
-    await expect(page.getByText("New customers")).toBeVisible();
-    await expect(page.getByText("Refunds issued")).toBeVisible();
+    await expect(page.getByText("Total Aberto ou Parcial")).toBeVisible();
+    await expect(page.getByText("Total Cancelada")).toBeVisible();
+    await expect(page.getByText("Total Executada")).toBeVisible();
+    await expect(page.getByText("Valor Total Executado")).toBeVisible();
   });
 
   test("dashboard shows orders table", async ({ page }) => {

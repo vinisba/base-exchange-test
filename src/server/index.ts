@@ -1,4 +1,5 @@
 import Elysia from "elysia";
+import { dashboard } from "./dashboard";
 import { orders } from "./orders";
 import { auth } from "./utils/auth";
 import { brapi } from "./utils/brapi";
@@ -14,6 +15,7 @@ export const app = new Elysia({ prefix: "/api" })
     { tags: ["Health Check"] },
   )
   .use(auth)
+  .use(dashboard)
   .use(orders)
   .use(brapi);
 

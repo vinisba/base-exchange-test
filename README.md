@@ -2,28 +2,32 @@
 
 Uma plataforma de negociação de ativos financeiros que permite criar, visualizar e cancelar ordens de compra e venda com execução automática.
 
-Este é um projeto de demonstração desenvolvido como parte de um desafio técnico.
-
 ## Tecnologias Utilizadas
-
-- **Linguagem:** TypeScript
 - **Framework Web:** [Next.js 16 (App Router)](https://nextjs.org/)
-- **Backend API:** [ElysiaJS](https://elysiajs.com/) (integrado via Eden Treaty)
-- **Banco de Dados & ORM:** PostgreSQL com [Prisma](https://www.prisma.io/)
-- **Autenticação:** [Better-auth](https://www.better-auth.com/)
-- **Gerenciamento de Estado:** [Zustand](https://zustand-demo.pmnd.rs/)
-- **Data Fetching:** [TanStack Query (React Query)](https://tanstack.com/query/latest)
-- **Tabelas:** [TanStack Table](https://tanstack.com/table/latest)
-- **Estilização:** Tailwind CSS & [Shadcn UI](https://ui.shadcn.com/)
-- **Formulários:** React Hook Form & Zod
-- **Ferramentas de Desenvolvimento:** Biome (Linting & Formatting), Docker (PostgreSQL)
+- **Backend API:** [ElysiaJS](https://elysiajs.com/) (integração de tipagem com Eden)
+- **Banco de Dados:** PostgreSQL com [Prisma](https://www.prisma.io/)
+- **Bibliotecas utilizadas:**
+  - [Better-auth](https://www.better-auth.com/)
+  - [Zustand](https://zustand-demo.pmnd.rs/)
+  - [TanStack Query (react-query)](https://tanstack.com/query/latest)
+  - [TanStack Table](https://tanstack.com/table/latest)
+  - [Shadcn UI](https://ui.shadcn.com/)
+  - [React Hook Form](https://react-hook-form.com/)
+  - [Zod](https://zod.dev/)
+
+## Site para preview
+- **Site:** [https://base-exchange-test.vercel.app](https://base-exchange-test.vercel.app)
+- **Documentação da API:** [https://base-exchange-test.vercel.app/api/openapi](https://base-exchange-test.vercel.app/api/openapi)
+- **Usuários para teste:** 
+  - E-mail: user1@email.com ou user2@email.com
+  - Senha: 12341234
 
 ## Como Instalar e Usar o Projeto
 
 ### Pré-requisitos
 
-- [Bun](https://bun.sh/) instalado
-- [Docker](https://www.docker.com/) instalado (para o banco de dados)
+- [Bun](https://bun.sh/) (NodeJS 20+)
+- [Docker](https://www.docker.com/) (para o banco de dados)
 
 ### Instalação
 
@@ -65,6 +69,25 @@ bun dev
 ```
 
 O projeto estará disponível em `http://localhost:3000`.
+
+### Testes
+
+Para rodar os testes:
+
+```bash
+bun run test
+```
+
+Testes e2e com playwright
+
+```bash
+bun run test:e2e --project=chromium
+```
+
+## Melhorias
+
+- Fila e backgrounds jobs para processar a execução da ordens de forma assíncrona
+- Testes unitários para API
 
 ## Contribuição
 

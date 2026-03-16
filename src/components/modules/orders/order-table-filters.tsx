@@ -6,7 +6,7 @@ import { SearchFilter } from "@/components/filters/search";
 import { SelectFilter } from "@/components/filters/select";
 import { useOrders } from "@/hooks/use-orders";
 
-export function TableFilters() {
+export function OrderTableFilters() {
   const { search, setSearch, filters, setFilters } = useOrders();
 
   return (

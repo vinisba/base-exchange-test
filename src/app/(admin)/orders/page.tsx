@@ -2,7 +2,7 @@ import { FileUser, Plus } from "lucide-react";
 import Link from "next/link";
 import OrderCancel from "@/components/modules/orders/order-cancel";
 import { OrderTable } from "@/components/modules/orders/order-table";
-import { TableFilters } from "@/components/modules/orders/table-filters";
+import { OrderTableFilters } from "@/components/modules/orders/order-table-filters";
 import { Button } from "@/components/ui/button";
 import { Page, PageContent, PageTitle } from "@/components/ui/page";
 
@@ -23,7 +23,7 @@ export default function OrdersPage() {
       </div>
 
       <PageContent>
-        <TableFilters />
+        <OrderTableFilters />
         <OrderTable onlyUser />
         <OrderCancel />
       </PageContent>

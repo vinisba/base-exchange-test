@@ -23,7 +23,7 @@ interface NavUserProps {
   };
 }
 
-export function NavUser({ user }: NavUserProps) {
+export function UserNav({ user }: NavUserProps) {
   const router = useRouter();
 
   function handleLogout() {

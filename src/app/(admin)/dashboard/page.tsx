@@ -1,11 +1,13 @@
 import { LayoutDashboard, Plus } from "lucide-react";
 import Link from "next/link";
+import { Suspense } from "react";
+import { DashboardKpi } from "@/components/modules/dashboard/dashboard-kpi";
+import { DashboardKpiSkeleton } from "@/components/modules/dashboard/dashboard-kpi-skeleton";
 import OrderCancel from "@/components/modules/orders/order-cancel";
 import { OrderTable } from "@/components/modules/orders/order-table";
-import { TableFilters } from "@/components/modules/orders/table-filters";
+import { OrderTableFilters } from "@/components/modules/orders/order-table-filters";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { CardGrid, CardGridItem } from "@/components/ui/card-grid";
 import { Page, PageContent, PageTitle } from "@/components/ui/page";
 
 export default async function DashboardPage() {
@@ -16,28 +18,9 @@ export default async function DashboardPage() {
         Dashboard
       </PageTitle>
       <PageContent>
-        <CardGrid>
-          <CardGridItem
-            icon={<LayoutDashboard />}
-            title="Monthly revenue"
-            value="$189,540.75"
-          />
-          <CardGridItem
-            icon={<LayoutDashboard />}
-            title="Orders fulfilled"
-            value="21,847"
-          />
-          <CardGridItem
-            icon={<LayoutDashboard />}
-            title="New customers"
-            value="4,975"
-          />
-          <CardGridItem
-            icon={<LayoutDashboard />}
-            title="Refunds issued"
-            value="$8,473.00"
-          />
-        </CardGrid>
+        <Suspense fallback={<DashboardKpiSkeleton />}>
+          <DashboardKpi />
+        </Suspense>
         <Card>
           <CardHeader className="border-b">
             <div className="flex flex-row items-center justify-between gap-2">
@@ -54,7 +37,7 @@ export default async function DashboardPage() {
             </div>
           </CardHeader>
           <CardContent className="flex flex-col gap-3">
-            <TableFilters />
+            <OrderTableFilters />
             <OrderTable />
             <OrderCancel />
           </CardContent>

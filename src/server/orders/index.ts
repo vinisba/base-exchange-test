@@ -3,13 +3,10 @@ import { auth } from "../utils/auth";
 import { OrderModel } from "./model";
 import { OrderService } from "./service";
 
-export const orders = new Elysia({ prefix: "/orders" })
+export const orders = new Elysia({ prefix: "/orders", tags: ["Orders"] })
   .use(auth)
   .guard({
     auth: true,
-    detail: {
-      tags: ["Orders"],
-    },
   })
   .get(
     "/",

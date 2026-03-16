@@ -1,6 +1,6 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { NavUser } from "@/components/modules/user/nav-user";
+import { UserNav } from "@/components/modules/user/user-nav";
 import { Logo } from "@/components/ui/logo";
 import { NavbarMenu } from "@/components/ui/navbar-menu";
 import { Toaster } from "@/components/ui/sonner";
@@ -35,7 +35,7 @@ export default async function AdminLayout({
           <Navbar>
             <Logo />
             <NavbarMenu items={menuItems} />
-            <NavUser user={session.user} />
+            <UserNav user={session.user} />
           </Navbar>
           <main>{children}</main>
           {modal}

@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { NavUser } from "@/components/modules/user/nav-user";
+import { UserNav } from "@/components/modules/user/user-nav";
 
 const { mockPush, mockSignOut } = vi.hoisted(() => ({
   mockPush: vi.fn(),
@@ -22,19 +22,19 @@ const defaultUser = {
   image: null,
 };
 
-describe("NavUser", () => {
+describe("UserNav", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
   it("renders the trigger button", () => {
-    render(<NavUser user={defaultUser} />);
+    render(<UserNav user={defaultUser} />);
     expect(screen.getByRole("button")).toBeInTheDocument();
   });
 
   it("shows user name and email in dropdown", async () => {
     const user = userEvent.setup();
-    render(<NavUser user={defaultUser} />);
+    render(<UserNav user={defaultUser} />);
 
     await user.click(screen.getByRole("button"));
 
@@ -44,7 +44,7 @@ describe("NavUser", () => {
 
   it("shows user initials as avatar fallback", async () => {
     const user = userEvent.setup();
-    render(<NavUser user={defaultUser} />);
+    render(<UserNav user={defaultUser} />);
 
     await user.click(screen.getByRole("button"));
 
@@ -54,7 +54,7 @@ describe("NavUser", () => {
   it("calls signOut on logout click", async () => {
     mockSignOut.mockResolvedValueOnce({});
     const user = userEvent.setup();
-    render(<NavUser user={defaultUser} />);
+    render(<UserNav user={defaultUser} />);
 
     await user.click(screen.getByRole("button"));
     await user.click(await screen.findByText("Sair"));

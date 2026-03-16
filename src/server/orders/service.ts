@@ -1,4 +1,4 @@
-import type { Side, Status } from "@generated/prisma/enums";
+import { type Side, Status } from "@generated/prisma/enums";
 import type {
   OrderOrderByWithRelationInput,
   OrderWhereInput,
@@ -111,16 +111,23 @@ export abstract class OrderService {
   }
 
   static async cancelOrder(id: string, userId: string): Promise<void> {
-    console.log(id, userId);
     const order = await prisma.order.findUniqueOrThrow({
       where: { id, status: { in: ["OPEN", "PARTIAL"] }, userId },
     });
 
-    console.log(order);
+    const oldStatus = order.status;
 
     await prisma.order.update({
       where: { id },
       data: { status: "CANCELED" },
+    });
+
+    await prisma.history.create({
+      data: {
+        orderId: order.id,
+        oldStatus,
+        newStatus: Status.CANCELED,
+      },
     });
   }
 
