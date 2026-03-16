@@ -19,6 +19,7 @@ enum Sides {
   Compra = "BUY",
   Venda = "SELL",
 }
+
 export function OrderForm() {
   const { createOrder } = useOrders();
 

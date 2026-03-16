@@ -27,7 +27,7 @@ export default function NewOrderModal() {
           </DialogDescription>
         </DialogHeader>
 
-        <OrderForm onFormClose={handleBack} />
+        <OrderForm />
       </DialogContent>
     </Dialog>
   );
