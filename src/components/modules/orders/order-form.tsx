@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { useOrders } from "@/hooks/use-orders";
+import { useCreateOrder } from "@/hooks/use-create-order";
 import { type OrderData, orderSchema } from "@/schemas/order";
 
 enum Sides {
@@ -21,7 +21,7 @@ enum Sides {
 }
 
 export function OrderForm() {
-  const { createOrder } = useOrders();
+  const { createOrder } = useCreateOrder();
 
   const {
     control,

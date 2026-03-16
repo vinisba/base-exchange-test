@@ -13,34 +13,25 @@ test.describe("Order management", () => {
       timeout: 15000,
     });
 
-    // Fill the stock input (type 3+ chars to trigger search)
     const stockInput = page.getByPlaceholder("Digite 3 caracteres");
     await stockInput.fill("PETR");
-    // Wait for the dropdown results and select the first one
     await page.getByRole("option").first().click({ timeout: 15000 });
-
-    // Select side: Compra
     await page.getByRole("radio", { name: "Compra" }).click();
 
-    // Fill price (MoneyInput expects raw digits, typing "1000" = R$ 10,00)
     const priceInput = page.locator("#price");
     await priceInput.fill("1000");
 
-    // Fill quantity
     const quantityInput = page.locator("#quantity");
     await quantityInput.fill("10");
 
-    // Submit
     await page.getByRole("button", { name: "Criar" }).click();
 
-    // Should show success toast
     await expect(page.getByText("Ordem criada com sucesso!")).toBeVisible({
       timeout: 10000,
     });
   });
 
   test("view order in orders list", async ({ page }) => {
-    // First create an order
     await page.getByRole("link", { name: "Adicionar" }).first().click();
     await expect(page.getByText("Adicionar ordem")).toBeVisible({
       timeout: 15000,
@@ -58,17 +49,14 @@ test.describe("Order management", () => {
       timeout: 10000,
     });
 
-    // Navigate to "Minhas ordens"
     await page.getByRole("link", { name: "Minhas ordens" }).click();
     await expect(page).toHaveURL("/orders");
 
-    // Should see the order in the table
     await expect(page.getByText("Compra").first()).toBeVisible();
     await expect(page.getByText("Aberta").first()).toBeVisible();
   });
 
   test("view order detail page", async ({ page }) => {
-    // Create an order first
     await page.getByRole("link", { name: "Adicionar" }).first().click();
     await expect(page.getByText("Adicionar ordem")).toBeVisible({
       timeout: 15000,
@@ -86,20 +74,17 @@ test.describe("Order management", () => {
       timeout: 10000,
     });
 
-    // Go to orders list and click on the order ID link in the table
     await page.getByRole("link", { name: "Minhas ordens" }).click();
     await page.waitForURL("/orders");
     await page.locator("table").getByRole("link").first().click();
     await expect(page).toHaveURL(/\/orders\/[a-zA-Z0-9]+/);
 
-    // Verify detail page content
     await expect(page.getByText("Detalhes da Ordem")).toBeVisible();
     await expect(page.getByText("Histórico de status")).toBeVisible();
     await expect(page.getByText("Histórico de execuções")).toBeVisible();
   });
 
   test("cancel an order", async ({ page }) => {
-    // Create an order first
     await page.getByRole("link", { name: "Adicionar" }).first().click();
     await expect(page.getByText("Adicionar ordem")).toBeVisible({
       timeout: 15000,
@@ -117,22 +102,18 @@ test.describe("Order management", () => {
       timeout: 10000,
     });
 
-    // Go to "Minhas ordens" and click "Cancelar" button
     await page.getByRole("link", { name: "Minhas ordens" }).click();
     await page.getByRole("button", { name: "Cancelar" }).first().click();
 
-    // Confirm the cancel dialog
     await expect(
       page.getByText("Você deseja cancelar esta ordem?"),
     ).toBeVisible();
     await page.getByRole("button", { name: "Continuar" }).click();
 
-    // Should show success toast
     await expect(page.getByText("Ordem cancelada com sucesso!")).toBeVisible({
       timeout: 10000,
     });
 
-    // The order should now show "Cancelada" status
     await expect(page.getByText("Cancelada").first()).toBeVisible();
   });
 });

@@ -37,10 +37,8 @@ test.describe("Authentication", () => {
     page,
   }) => {
     const user = generateTestUser();
-    // First create the account
     await signUp(page, user);
     await logout(page);
-    // Then sign in
     await signIn(page, user);
     await expect(page).toHaveURL("/dashboard");
   });
@@ -68,7 +66,6 @@ test.describe("Authentication", () => {
     await page.getByRole("link", { name: /Criar/i }).click();
     await expect(page).toHaveURL("/sign-up");
 
-    // Wait for the sign-up page to fully render before clicking back
     await expect(page.getByText("Crie sua conta")).toBeVisible();
     await page.getByRole("link", { name: /Acessar/i }).click();
     await expect(page).toHaveURL("/sign-in");

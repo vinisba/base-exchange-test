@@ -34,7 +34,6 @@ export async function signIn(page: Page, user: TestUser) {
 }
 
 export async function logout(page: Page) {
-  // Open the user dropdown menu in the header, then click "Sair"
   await page.locator("header").getByRole("button").last().click();
   await page.getByRole("menuitem", { name: "Sair" }).click();
   await page.waitForURL("/sign-in");

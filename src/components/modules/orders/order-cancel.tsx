@@ -10,11 +10,11 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { useOrders } from "@/hooks/use-orders";
+import { useCancelOrder } from "@/hooks/use-cancel-order";
 
 export default function OrderCancel() {
   const { orderIdToCancel, setOrderIdToCancel, isCanceling, cancelOrder } =
-    useOrders();
+    useCancelOrder();
 
   function handleCancel() {
     setOrderIdToCancel(null);

@@ -4,10 +4,10 @@ import { Side, Status } from "@generated/prisma/enums";
 import { DateFilter } from "@/components/filters/date";
 import { SearchFilter } from "@/components/filters/search";
 import { SelectFilter } from "@/components/filters/select";
-import { useOrderState } from "@/states/order";
+import { useOrders } from "@/hooks/use-orders";
 
 export function TableFilters() {
-  const { search, setSearch, filters, setFilters } = useOrderState();
+  const { search, setSearch, filters, setFilters } = useOrders();
 
   return (
     <div className="flex flex-row gap-2 justify-between">

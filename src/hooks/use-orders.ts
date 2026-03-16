@@ -1,18 +1,21 @@
 "use client";
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
+import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/client";
-import type { OrderData } from "@/schemas/order";
 import { useOrderState } from "@/states/order";
 import { useDebounce } from "./use-debounce";
 
 export function useOrders({ userId }: { userId?: string } = {}) {
-  const router = useRouter();
-  const queryClient = useQueryClient();
-  const { orderIdToCancel, setOrderIdToCancel, search, filters, sorting } =
-    useOrderState();
+  const {
+    search,
+    filters,
+    sorting,
+    setOrderIdToCancel,
+    setSearch,
+    setFilters,
+    setSorting,
+    resetFilters,
+  } = useOrderState();
 
   const debouncedSearch = useDebounce(search, 500);
 
@@ -22,8 +25,8 @@ export function useOrders({ userId }: { userId?: string } = {}) {
       api.orders.get({
         query: {
           search: debouncedSearch,
-          side: filters.side,
-          status: filters.status,
+          side: filters.side || undefined,
+          status: filters.status || undefined,
           createdAt: filters.createdAt?.toISOString(),
           sortBy: sorting[0]?.id,
           sortOrder: sorting[0]?.desc ? "desc" : "asc",
@@ -32,43 +35,18 @@ export function useOrders({ userId }: { userId?: string } = {}) {
       }),
   });
 
-  const { mutate: createOrder } = useMutation({
-    mutationFn: (order: OrderData) => api.orders.post(order),
-    onSuccess: () => {
-      toast.success("Ordem criada com sucesso!");
-      queryClient.invalidateQueries({
-        queryKey: ["orders"],
-      });
-      router.back();
-    },
-    onError: () => {
-      toast.error("Erro ao criar ordem!");
-    },
-  });
-
-  const { mutate: cancelOrder, isPending: isCanceling } = useMutation({
-    mutationFn: (orderId: string) => api.orders({ id: orderId }).cancel.post(),
-    onSuccess: () => {
-      toast.success("Ordem cancelada com sucesso!");
-      queryClient.invalidateQueries({
-        queryKey: ["orders"],
-      });
-      setOrderIdToCancel(null);
-    },
-    onError: () => {
-      toast.error("Erro ao cancelar ordem!");
-    },
-  });
-
   const orders = data?.data || [];
 
   return {
     orders,
-    createOrder,
-    cancelOrder,
     isLoading,
-    isCanceling,
-    orderIdToCancel,
     setOrderIdToCancel,
+    search,
+    filters,
+    sorting,
+    setSearch,
+    setFilters,
+    setSorting,
+    resetFilters,
   };
 }

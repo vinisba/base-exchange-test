@@ -29,7 +29,6 @@ test.describe("Dashboard", () => {
 
   test('"Adicionar" button opens new order modal', async ({ page }) => {
     await page.getByRole("link", { name: "Adicionar" }).first().click();
-    // The modal dialog should appear (may need extra time for first compile)
     await expect(page.getByText("Adicionar ordem")).toBeVisible({
       timeout: 15000,
     });

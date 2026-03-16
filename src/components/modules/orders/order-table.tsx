@@ -1,10 +1,10 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { DataTable } from "@/components/ui/data-table";
 import { useOrders } from "@/hooks/use-orders";
 import { authClient } from "@/lib/client";
-import { useOrderState } from "@/states/order";
+
 import { columns } from "./columns";
 
 interface OrderTableProps {
@@ -13,10 +13,14 @@ interface OrderTableProps {
 
 export function OrderTable({ onlyUser = false }: OrderTableProps) {
   const { data: session } = authClient.useSession();
-  const { orders, setOrderIdToCancel } = useOrders({
-    userId: onlyUser ? session?.user.id : undefined,
-  });
-  const { sorting, setSorting } = useOrderState();
+  const { orders, setOrderIdToCancel, sorting, setSorting, resetFilters } =
+    useOrders({
+      userId: onlyUser ? session?.user.id : undefined,
+    });
+
+  useEffect(() => {
+    resetFilters();
+  }, [resetFilters]);
 
   const cols = useMemo(
     () =>
